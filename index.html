@@ -6,20 +6,23 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Notes</title>
   <link rel="stylesheet" href="style.css">
+  <script src="moment.min.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
   <main class='main'>
-    <h1></h1>
-    <form id=notes>
+    <h1 class='title'>Notes</h1>
+    <form id='new-note-form' class='form'>
+      <label for='note-text'>Create new Note</label>
+      <input type='text' id='note-text' required>
+
       <div>
-        
+        <button type="submit">Add Note</button>
+
       </div>
-
-
-
-
     </form>
+
+    <section id='notes' class='notes'></section>
   </main>
   
 </body>

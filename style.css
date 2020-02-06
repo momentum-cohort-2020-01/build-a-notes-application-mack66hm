@@ -1,0 +1,24 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    font-family: sans-serif;
+}
+
+.main {
+    max-width: 40rem;
+    padding: 0 2rem;
+    margin: 2rem auto;
+}
+
+.title {
+    margin-bottom: 2rem;
+}
+
+.notes ul {
+    list-style-type: none;
+    padding-left: 0;
+}
