@@ -1,4 +1,5 @@
 /* globals fetch, moment */
+
 function print (value) {
   console.log(value)
   return value
@@ -16,25 +17,26 @@ function getAllNotes () {
 }
 
 function createNotesHTML (notes) {
-  return `<ul id='notes-list'>${notes.map(note => `<li>${note.note}</li>`).join('')}</ul>`
+    let notesStr = '<ul id="notes-list">'
+  for (const note of notes) {
+      notesStr += createNoteHTML(note)
+  }
+  notesStr += '</ul>'
+  return notesStr
 
-  // let notesStr = '<ul id='notes-list'>'
-  // for (const note of notes) {
-  //     notesStr += createNotesHTML(note)
-  // }
-  // notesStr += '</ul>'
-  // return notesStr
 }
 
+
+
 function createNoteHTML (note) {
-  return `<li data-note-id='${note.id}'>${note.note} <button class='delete'>Delete</li>`
+  return `<li data-note-id='${note.id}'>${note.note} <button class='delete'>Delete</button></li>`
 }
 
 function postNewNote (noteText) {
   return fetch('http://localhost:3000/notes/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ note: noteText, done: false, created: SVGAnimateMotionElement().format() })
+    body: JSON.stringify({ note: noteText, done: false, created: moment().format() })
   })
     .then(response => response.json())
 }
@@ -45,7 +47,7 @@ function renderNotesList (notes) {
   notesSection.innerHTML = notesHTML
 }
 
-function renderNewNotes (note) {
+function renderNewNote (note) {
   const noteHTML = createNoteHTML(note)
   const notesList = q('#notes-list')
   notesList.insertAdjacentHTML('beforeend', noteHTML)
@@ -53,7 +55,7 @@ function renderNewNotes (note) {
 getAllNotes().then(renderNotesList)
 
 q('#new-note-form').addEventListener('submit', event => {
-  e.preventDefault()
+  event.preventDefault()
   const noteTextField = q('#note-text')
   const noteText = noteTextField.value
   noteTextField.value = ''
@@ -62,6 +64,6 @@ q('#new-note-form').addEventListener('submit', event => {
 
 q('#notes').addEventListener('click', event => {
   if (event.target.matches('.delete')) {
-    print('delete ' + event.target.parentElement.dataset.todoId)
+    print('delete ' + event.target.parentElement.dataset.noteId)
   }
 })
