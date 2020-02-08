@@ -26,7 +26,7 @@ function createNotesHTML (notes) {
 }
 
 function createNoteHTML (note) {
-  return `<li data-note-id='${note.id}'>${note.note} <button class='delete'>Delete</button></li>`
+  return `<li data-note-id='${note.id}'>${note.note} <button class='edit'> Edit </button><button class='delete'>Delete</button></li>`
 }
 
 function postNewNote (noteText) {
@@ -64,5 +64,26 @@ q('#notes').addEventListener('click', event => {
     print('delete ' + event.target.parentElement.dataset.noteId)
     return fetch(('http://localhost:3000/notes/' + event.target.parentElement.dataset.noteId),
       { method: 'DELETE' })
+  }
+})
+
+// q('#notes').addEventListener('click', event => {
+//     if(event.target.matches('.edit')) {
+//         print(editNote)
+//     }
+// })
+function editNote (noteText) {
+  return fetch('http://localhost:3000/notes/' + event.target.parentElement.dataset.noteId),
+  {
+    method: 'PATCH',
+    headers: { 'Content-type': 'application/json; charset=UTF-8'},
+    body: JSON.stringify({ note: noteText.contentEditable, done: true })
+      .then(response => response.json())
+  }
+}
+
+q('#notes').addEventListener('click', event => {
+  if (event.target.matches('.edit')) {
+    print(editNote)
   }
 })
